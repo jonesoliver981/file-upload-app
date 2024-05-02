@@ -1,25 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import FileProcessPage from './components/FileUploadPage/FileProcessPage'
+import Footer from './components/footer/Footer';
+
+
+
+
 
 function App() {
+
+
+  // const[ShowModal,setShowModal] =useState(false);
+  // const handbuttonclick=()=>{
+  //   setShowModal(false)
+  // }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App-header'>
+    {/* //   <button className="btn btn-no" onClick={()=>setShowModal(true)}>No</button> */}
+      <FileProcessPage />
+      <Footer />
+      {/* {ShowModal &&
+      <ModalAlert onSubmit={handbuttonclick} onCancel={handbuttonclick} onClose={handbuttonclick}/>
+} */}
     </div>
-  );
+     );
 }
 
 export default App;
