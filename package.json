@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "assert": "^2.1.0",
     "browserify-zlib": "^0.2.0",
+    "dotenv": "^16.4.5",
     "env-cmd": "^10.1.0",
     "https-browserify": "^1.0.0",
     "react": "^18.2.0",
@@ -32,7 +33,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test ",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -60,9 +61,10 @@
   "optimization": {
     "scripts": true,
     "styles": {
-       "minify": false,
-       "inlineCritical": false
+      "minify": false,
+      "inlineCritical": false
     },
     "fonts": true
   }
+  
 }

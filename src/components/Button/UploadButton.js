@@ -1,95 +1,79 @@
-import React, { useState ,useEffect } from 'react';
-import { LuUpload } from 'react-icons/lu';
-import './UploadButton.css';
-import '../Alerts/InfoAlert.css';
-// import InfoAlert from '../Alerts/InfoAlert';
-import WarmingAlert from '../Alerts/WarmingAlert';
+import React, { useState, useEffect } from "react";
+import { LuUpload } from "react-icons/lu";
+import "./UploadButton.css";
+import "../Alerts/InfoAlert.css";
+import WarmingAlert from "../Alerts/WarmingAlert";
 
-const UploadButton = ({ children, className, onFileSelect, index,category, subcategory ,resetSelectedFile,Files }) => {
-
-  // console.log("resetSelectedFile prop:", resetSelectedFile);
+const UploadButton = ({
+  children,
+  className,
+  onFileSelect,
+  index,
+  category,
+  subcategory,
+  resetSelectedFile,
+  Files,
+}) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [showFileFormatAlert, setShowFileFormatAlert] = useState(false);
-  const [previousFileName, setPreviousFileName] = useState('');
-  const [showWarningAlert,setShowWarningAlert] =useState(false)
-  const [showFileAlready,setshowFileAlready] =useState(false)
+  const [showWarningAlert, setShowWarningAlert] = useState(false);
+  const [showFileAlready, setshowFileAlready] = useState(false);
 
-
-  
   useEffect(() => {
-    // console.log('aaa-', subcategory);
     if (!subcategory && selectedFile) {
-        // console.log('bbbbb-', subcategory);
-        setSelectedFile(resetSelectedFile()); 
+      setSelectedFile(resetSelectedFile());
     }
-}, [subcategory, selectedFile]);
-
-
+  }, [subcategory, selectedFile]);
 
   const handleFileSelect = (e, subcategory) => {
-    const files = e.target.files 
-    let file =files[0]
-    debugger
-    console.log('aaaaa--------',file)
-    console.log('bbbbbbb-----',Files)
-    // console.log(Files)
-    if (index > 0 && Files.some((item => item && item.file && item.file.name === file.name))) {
+    const files = e.target.files;
+    let file = files[0];
+
+    if (
+      index > 0 &&
+      Files.some((item) => item && item.file && item.file.name === file.name)
+    ) {
       setshowFileAlready(true);
       setSelectedFile(null);
       setTimeout(() => {
-          setshowFileAlready(false);
-      }, 3000);
+        setshowFileAlready(false);
+      }, 5000);
       return;
-  }
+    }
 
     if (!file) {
       return;
     }
-    const fileSizeInMB = file.size / (1024 * 1024); 
+    const fileSizeInMB = file.size / (1024 * 1024);
     if (fileSizeInMB > 1) {
-        e.target.value = ''
-        // debugger
-        // e.target.files=null
-        
-        // console.log(e.target.files=null)
-        // console.log(file)
-        setShowWarningAlert(true);
-        setTimeout(() => {
-            setShowWarningAlert(false);
-        }, 3000);
-        
-        file =null;
-        // console.log(file)
-        setSelectedFile(null);
-        return;
+      e.target.value = "";
+      setShowWarningAlert(true);
+      setTimeout(() => {
+        setShowWarningAlert(false);
+      }, 5000);
+      file = null;
+      setSelectedFile(null);
+      return;
     }
-    if (file.name.endsWith('.doc') || file.name.endsWith('.docx')) {
+    if (file.name.endsWith(".doc") || file.name.endsWith(".docx")) {
       setSelectedFile(file);
       onFileSelect(file, subcategory, index);
-      
     } else {
-      // setPreviousFileName(file.name)
-      console.error(
-        `Unsupported file type: "${file.name}". Only .doc and .docx files are supported.`
-      );
       setShowFileFormatAlert(true);
       setTimeout(() => {
         setShowFileFormatAlert(false);
-      }, 3000);
+      }, 5000);
       return;
     }
-    // console.log(subcategory)
-    // console.log(resetSelectedFile)
-   
-};
+  };
 
   return (
     <label className={`upload-button1 ${className}`}>
       {/* {children} */}
-      
+
       {selectedFile ? (
-        <div className='file-name-container'>
-        <b className='file-name'>{selectedFile.name}</b>
+        <div className="file-name-container">
+          <b className="file-name">{selectedFile.name}</b>
         </div>
       ) : (
         <b>
@@ -100,23 +84,36 @@ const UploadButton = ({ children, className, onFileSelect, index,category, subca
         type="file"
         accept=".doc, .docx"
         onChange={(e) => handleFileSelect(e, subcategory)}
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         disabled={!category || !subcategory}
         required
       />
-      <LuUpload className={selectedFile ? 'icon-hidden' : 'icon'} />
+      <LuUpload className={selectedFile ? "icon-hidden" : "icon"} />
       {showFileFormatAlert && (
         <WarmingAlert message="File format is unsupported. Please upload .doc or .docx format." />
       )}
-      {showWarningAlert && <WarmingAlert message="File size exceeds the limit of 1MB."/>}
-      {showFileAlready && <WarmingAlert message='The same file has already been uploaded'/>}
-                    
-                    
+      {showWarningAlert && (
+        <WarmingAlert message="File size exceeds the limit of 1MB." />
+      )}
+      {showFileAlready && (
+        <WarmingAlert message="The same file has already been uploaded" />
+      )}
     </label>
   );
 };
 
 export default UploadButton;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -219,7 +216,7 @@ export default UploadButton;
 //       <LuUpload className={selectedFile ? 'icon-hidden' : 'icon'} />
 //       {showFileFormatAlert && <InfoAlert message="File format is unsupported. Please upload .doc or .docx format."/>}
 //     </label>
-    
+
 //   );
 // };
 

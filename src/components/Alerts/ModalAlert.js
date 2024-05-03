@@ -30,8 +30,12 @@ import './ModalAlert.css';
 
 
 const ModalAlert =({onSubmit,onCancel,onClose ,children})=>{
+
+
+
+  
   return(
-    <div className="modal-container">
+    <div id='warning-modal' className="modal-container">
       <div className="modal">
         <div className="modal-header">
           <p className="close" onClick={onClose}>&times;</p>
